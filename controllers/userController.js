@@ -1,7 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { initializeApp } from 'firebase-admin/app';
+import { getAuth, onAuthStateChanged } from 'firebase-admin/auth';
+import { getDocs, getFirestore } from 'firebase-admin/firestore';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const firebaseApp = initializeApp({
@@ -16,7 +17,6 @@ const firebaseApp = initializeApp({
 
 const auth = getAuth(firebaseApp);
 const firebaseContext = getFirestore(firebaseApp);
-const users = collection(firebaseContext, 'Users');
 
 onAuthStateChanged(auth,user => {
     if(user !== null){
@@ -28,9 +28,10 @@ onAuthStateChanged(auth,user => {
 
 export const createUser = function(req,res){
     const {password, username} = req.body;
-    console.log("Username is:" + username);
-    console.log("Password is:" + password);
-    console.log(process.env.API_KEY);
+    const data = {
+        "password":password,
+        "username":username
+    }
 }
 
 export const deleteUser = function(req,res){
