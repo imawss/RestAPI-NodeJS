@@ -1,4 +1,5 @@
 import {firebaseContext,Users} from '../dataAccess/firebaseConfig.js';
+import { getDocs } from 'firebase/firestore';
 
 export const createUser =  async function(req,res){
     const {password, username} = req.body;
@@ -25,7 +26,7 @@ export const getUserById = function(req,res){
 }
 
 export const getAllUsers = async function(req,res){
-    const userList = await Users.get();
+    const userList = await getDocs(Users);
     res.send(userList);
 }
 

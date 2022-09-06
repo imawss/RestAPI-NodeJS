@@ -1,10 +1,17 @@
-import { initializeApp } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
-import {  getFirestore } from 'firebase-admin/firestore';
-import { serviceAccount } from '../dataAccess/serviceAccount.json' assert {type: 'json'};
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import {  getFirestore, collection, getDocs } from 'firebase/firestore';
 
-const firebaseApp = initializeApp({ credential: admin.credential.cert(serviceAccount) });
+const firebaseApp = initializeApp({
+    apiKey: "AIzaSyBVhXTYSqt3FbO5pFx1S0k8E4Wr9ZXAsPw",
+    authDomain: "nodejsrestapi-fb162.firebaseapp.com",
+    projectId: "nodejsrestapi-fb162",
+    storageBucket: "nodejsrestapi-fb162.appspot.com",
+    messagingSenderId: "762142195052",
+    appId: "1:762142195052:web:72bd73e2b18a5b53918749",
+    measurementId: "G-HYVDQEDYV6"
+});
 
-const auth = getAuth(firebaseApp);
+export const auth = getAuth(firebaseApp);
 export const firebaseContext = getFirestore(firebaseApp);
-export const Users = firebaseContext.collection("Users");
+export const Users = collection(firebaseContext,'Users');
