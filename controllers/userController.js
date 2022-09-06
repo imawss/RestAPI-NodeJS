@@ -1,37 +1,15 @@
-import { initializeApp } from 'firebase-admin/app';
-import { getAuth, onAuthStateChanged } from 'firebase-admin/auth';
-import { getDocs, getFirestore } from 'firebase-admin/firestore';
-import dotenv from 'dotenv';
+import {firebaseContext,Users} from '../dataAccess/firebaseConfig.js';
 
-dotenv.config();
-
-const firebaseApp = initializeApp({
-    apiKey:process.env.API_KEY,
-    authDomain:"nodejsrestapi-fb162.firebaseapp.com",
-    projectId:"nodejsrestapi-fb162",
-    storageBucket:"nodejsrestapi-fb162.appspot.com",
-    messagingSenderId:"762142195052",
-    appId:"1:762142195052:web:72bd73e2b18a5b53918749",
-    measurementId:"G-HYVDQEDYV6"
-});
-
-const auth = getAuth(firebaseApp);
-const firebaseContext = getFirestore(firebaseApp);
-
-onAuthStateChanged(auth,user => {
-    if(user !== null){
-        console.log('Logged in!');
-    }else{
-        console.log('You should give a user');
-    }
-});
-
-export const createUser = function(req,res){
+export const createUser =  async function(req,res){
     const {password, username} = req.body;
     const data = {
         "password":password,
         "username":username
     }
+  
+    await Users.add(data);
+    res.send("A user added");
+
 }
 
 export const deleteUser = function(req,res){
@@ -46,7 +24,8 @@ export const getUserById = function(req,res){
     
 }
 
-export const getAllUsers = function(req,res){
-
+export const getAllUsers = async function(req,res){
+    const userList = await Users.get();
+    res.send(userList);
 }
 
