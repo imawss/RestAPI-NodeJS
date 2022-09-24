@@ -1,4 +1,5 @@
-import {firebaseContext,Users} from '../dataAccess/firebaseConfig.js';
+import {dbRef,database} from '../dataAccess/firebaseConfig.js';
+import { ref, set, push, child, remove, get, onChildAdded, onChildChanged, onChildRemoved } from 'firebase/database';
 import { getDocs } from 'firebase/firestore';
 
 export const createUser =  async function(req,res){
@@ -8,9 +9,9 @@ export const createUser =  async function(req,res){
         "username":username
     }
   
-    await Users.add(data);
+    const userId = push(ref(database, "Users"));
+    set(userId, data);
     res.send("A user added");
-
 }
 
 export const deleteUser = function(req,res){
