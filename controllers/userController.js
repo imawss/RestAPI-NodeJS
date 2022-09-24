@@ -23,11 +23,12 @@ export const updateUser = function(req,res){
 }
 
 export const getUserById = function(req,res){
-    
+
 }
 
 export const getAllUsers = async function(req,res){
-    const userList = await getDocs(Users);
-    res.send(userList);
+    get(child(dbRef, "Users/")).then(snapshot => {
+        res.send(snapshot.val());
+      });
 }
 
