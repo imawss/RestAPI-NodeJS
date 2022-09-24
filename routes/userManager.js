@@ -8,5 +8,5 @@ userRoute.get('/users',getAllUsers);
 userRoute.get('/users:id', getUserById);
 
 userRoute.post('/users/create', createUser);
-
+userRoute.post('/users/delete:id', createUser);
 export default userRoute;

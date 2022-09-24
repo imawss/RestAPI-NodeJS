@@ -15,7 +15,7 @@ export const createUser =  async function(req,res){
 }
 
 export const deleteUser = function(req,res){
-    
+
 }
 
 export const updateUser = function(req,res){
