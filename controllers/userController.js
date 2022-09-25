@@ -8,22 +8,21 @@ export const createUser =  async function(req,res){
         "password":password,
         "username":username
     }
-  
+
     const userId = push(ref(database, "Users"));
     set(userId, data);
     res.send("A user added");
 }
 
 export const deleteUser = function(req,res){
-
-}
-
-export const updateUser = function(req,res){
-    
+    remove(ref(database, `Users/${req.params.id}`));
+    res.send("A user deleted");
 }
 
 export const getUserById = function(req,res){
-
+    get(child(dbRef, `Users/${req.params.id}`)).then(snapshot => {
+       res.json(snapshot.val());
+    })
 }
 
 export const getAllUsers = async function(req,res){
